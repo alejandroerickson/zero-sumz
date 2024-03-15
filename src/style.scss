@@ -16,36 +16,31 @@ body {
   }
   
   .card-wrapper {
+    width: 140px; /* Adjusted for layout */
+    height: 180px; /* Adjusted for layout */
     margin: 10px;
-    position: relative;
-  }
-  
-  .card-checkbox {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    border: 2px solid #000; /* Visible border */
+    background-color: #fff; /* Unselected color */
     cursor: pointer;
-    z-index: 2;
+    transition: background-color 0.3s; /* Smooth transition for selection */
+  
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
   }
   
-  .card {
-    width: 120px;
-    height: 120px;
+  .card-wrapper.selected {
+    background-color: #666; /* Selected color */
+  }
+  
+  .shape {
+    width: 50px; /* Shape size */
+    height: 50px; /* Shape size */
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px solid transparent;
-    transition: transform 0.2s, border-color 0.2s;
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-    z-index: 1;
-  
-    &:hover {
-      transform: scale(1.1);
-    }
+    font-size: 30px; /* Emoji size */
   }
   
   button {
