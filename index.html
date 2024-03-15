@@ -2,14 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Vector Card Game</title>
+    <title>Zero sumZ</title>
 </head>
 <body>
-    <div id="gameInstructions">
-        <p>Select cards that sum up to an even number of shapes in each dimension.</p>
+    <div id="welcomeScreen">
+        <img src="splash.jpeg" alt="Welcome Image" id="welcomeImage" style="max-width: 100%; height: auto;"> <!-- Update with your image path -->
+        <div id="gameInstructions">
+            <p>Find a Zero Sum Set of cards with an even number of each type of shape.</p>
+        </div>
+        <div id="playerSelection" style="display: none;">
+            <p>Choose number of players:</p>
+            <!-- Player number selection buttons will be added here dynamically -->
+        </div>
+        <button id="startGameButton" style="display: none;">Start Game</button>
     </div>
-    <div id="cardsContainer"></div>
-    <button id="checkButton">Check Selection</button>
-    <script src="bundle.js"></script> <!-- Ensure the path to your JS bundle is correct -->
+    <div id="gameContainer" style="display: none;">
+        <div id="cardsContainer"></div>
+        <button id="checkButton" style="display: none;">Verify</button>
+<button id="zeroButton" style="font-size: 24px; padding: 10px 20px; margin-bottom: 20px;">ZERO</button>
+<div id="playerInfo" style="margin-bottom: 20px;"></div>
+        <!-- Consider adding a reset or new game button here -->
+    </div>
+    <script src="bundle.js"></script> <!-- Ensure the path to your JS file is correct -->
 </body>
 </html>
