@@ -13,7 +13,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '14'  # Set to your Node.js version
+          node-version: '14'  # Set to your Node.js version, adjust as necessary
 
       - name: Install dependencies
         run: npm install
@@ -27,6 +27,4 @@ jobs:
           git config --local user.name "GitHub Action"
       
       - name: Deploy
-        run: npx gh-pages -d dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx gh-pages -d dist --silent --repo=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
