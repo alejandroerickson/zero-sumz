@@ -29,10 +29,29 @@ document.addEventListener('DOMContentLoaded', () => {
         playerInfo.innerHTML = ''; // Clear previous player info
         players.forEach((cardsWon, index) => {
             const playerDiv = document.createElement('div');
-            playerDiv.textContent = `Player ${index + 1}: ${cardsWon} cards`;
+            playerDiv.textContent = `Player ${index + 1}: ${cardsWon} points`;
+            if (index === activePlayer) {
+                playerDiv.textContent += " (Active)";
+            }
             playerInfo.appendChild(playerDiv);
         });
+    
+        // Display "None" if no active player
+        if (activePlayer === -1) {
+            const noActivePlayerDiv = document.createElement('div');
+            noActivePlayerDiv.textContent = "Active Player: None";
+            playerInfo.appendChild(noActivePlayerDiv);
+        }
     }
+    
+// Function to display messages
+function displayMessage(message, isError = true) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.style.color = isError ? 'red' : 'green'; // Red for errors, green for success messages
+    // Optionally, clear the message after a delay
+    setTimeout(() => messageContainer.textContent = '', 3000);
+}
 
 
     function setupMultiplayerGame() {
@@ -42,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gameInstructions.appendChild(playButton);
   
       // Create container for player number selection buttons
-      playerButtonsContainer = document.createElement('div');
+      playerButtonsContainer = document.getElementById('playerSelection');
       gameInstructions.appendChild(playerButtonsContainer);
       for (let i = 1; i <= 6; i++) {
         const playerButton = document.createElement('button');
@@ -89,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     zeroButton.addEventListener('click', () => {
         // Inform the user to select the current player
-        alert("Select the current player and their new Zero Sum set.");
-    
+        displayMessage("Select the current player and their new Zero Sum set.", false);
+
         // Create or clear a container for active player selection buttons
         let activePlayerButtonsContainer = document.getElementById('activePlayerButtons');
         if (!activePlayerButtonsContainer) {
@@ -107,13 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
             activePlayerButton.textContent = `Player ${i}`;
             activePlayerButton.onclick = () => {
                 activePlayer = i - 1; // Set the active player
-                alert(`Player ${i} is now active. Select your Zero Sum set.`);
+                displayPlayerInfo();
+                displayMessage(`Player ${i} is now active. Select your Zero Sum set.`, false);
                 // Hide or remove the active player buttons after selection to prevent re-selection within the same turn
                 activePlayerButtonsContainer.style.display = 'none';
             };
             activePlayerButtonsContainer.appendChild(activePlayerButton);
         }
-    
+
         // Make sure the container is visible
         activePlayerButtonsContainer.style.display = 'block';
     });
@@ -173,23 +193,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkButton.addEventListener('click', () => {
         const selectedCardWrappers = [...cardsContainer.querySelectorAll('.card-wrapper.selected')];
-        if (selectedCardWrappers.length === 0) return;
     
+        if (selectedCardWrappers.length === 0 || activePlayer === -1) {
+            displayMessage("Please select a player and cards first.", true);
+
+            return;
+        }
+
         const selectedCards = selectedCardWrappers.map(wrapper =>
           Array.from(wrapper.children).map(shape => shape.firstChild ? 1 : 0)
         );
-
-    
-        if (activePlayer === -1) {
-            alert("Please select a player first.");
-            return;
-        }
 
         const isValid = verifySelection(selectedCards)
         if (isValid) {
             
           // Move selected cards to discard pile and update player score
-          players[currentPlayerIndex] += selectedCards.length;
+          players[activePlayer] += selectedCards.length;
           displayPlayerInfo(); // Refresh player info display
           discardPile.push(...selectedCards.map(card => card.join('')));
           selectedCardWrappers.forEach(wrapper => wrapper.remove());
@@ -199,7 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let remainingCards = generateAllCards().filter(card => !discardPile.includes(card.join('')));
             deck = shuffle([...remainingCards]);
           }
-    
+
+
           dealCards();
     
           // Move to the next player or end game if deck is exhausted
@@ -210,15 +230,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // Optionally, update the UI to indicate the current player
           }
         } else {
-          alert("Incorrect, try again."); // If the selection does not sum to zero, prompt retry
+            players[activePlayer] -= 1;
+            displayMessage("Incorrect, try again.  -1 point.", true);
+
         }
+    // Deselect all selected cards
+    selectedCardWrappers.forEach(wrapper => wrapper.classList.remove('selected'));
+    
+            // Reset active player after verification attempt
+    activePlayer = -1;
+        displayPlayerInfo(); // Refresh player info display to reflect score change
+
       });
   
 
   
     function endGame() {
       const winnerIndex = players.indexOf(Math.max(...players));
-      alert(`Congratulations, Player ${winnerIndex + 1} wins with ${players[winnerIndex]} cards!`);
+      displayMessage(`Congratulations, Player ${winnerIndex + 1} wins with ${players[winnerIndex]} cards!`, false);
     }
   
     setupMultiplayerGame();
