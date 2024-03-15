@@ -21,7 +21,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+      
       - name: Deploy
-        run: npx gh-pages -d dist  # Assumes your output folder is 'dist'
+        run: npx gh-pages -d dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
