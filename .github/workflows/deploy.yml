@@ -27,4 +27,4 @@ jobs:
           git config --local user.name "GitHub Action"
       
       - name: Deploy
-        run: npx gh-pages -d dist --silent --repo=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        run: npx gh-pages -d dist --repo=https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
