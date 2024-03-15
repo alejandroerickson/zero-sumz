@@ -14,33 +14,41 @@ body {
     justify-content: center;
     margin-top: 20px;
   }
-  
   .card-wrapper {
-    width: 140px; /* Adjusted for layout */
-    height: 180px; /* Adjusted for layout */
+    width: 140px;
+    height: 180px;
     margin: 10px;
-    border: 2px solid #000; /* Visible border */
-    background-color: #fff; /* Unselected color */
+    border: 2px solid #000;
+    background-color: #fff;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition for selection */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+    justify-items: center;
+    align-items: center;
+    transition: background-color 0.3s;
   
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: space-around;
-  }
+    &:hover {
+      background-color: #eee; /* Lighten on hover for visual feedback */
+    }
   
-  .card-wrapper.selected {
-    background-color: #666; /* Selected color */
+    &.selected {
+      background-color: #666; /* Darken when selected */
+    }
   }
   
   .shape {
-    width: 50px; /* Shape size */
-    height: 50px; /* Shape size */
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px; /* Emoji size */
+  
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
   
   button {
