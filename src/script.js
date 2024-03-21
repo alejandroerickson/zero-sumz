@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Array.from(wrapper.children).map(shape => shape.firstChild ? 1 : 0)
     );
 
-    const isValid = verifySelection(selectedCards) || true;
+    const isValid = verifySelection(selectedCards);
     if (isValid) {
       console.log(`Congratulations, Player ${activePlayer + 1}! You found a Zero Sum Set of size ${selectedCards.length}`);
       showToast(`Congratulations, Player ${activePlayer + 1}! You found a Zero Sum Set of size ${selectedCards.length}`, false, 10000);
