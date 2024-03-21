@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Zero sumZ</title>
 </head>
+
 <body>
     <div id="welcomeScreen">
-        <img src="splash.jpeg" alt="Welcome Image" id="welcomeImage" style="max-width: 100%; height: auto;"> <!-- Update with your image path -->
+        <img src="splash.jpeg" alt="Welcome Image" id="welcomeImage" style="max-width: 100%; height: auto;">
+        <!-- Update with your image path -->
         <div id="gameInstructions">
             <p>Find a Zero Sum Set of cards with an even number of each type of shape.</p>
         </div>
@@ -18,13 +21,16 @@
     </div>
     <div id="gameContainer" style="display: none;">
         <div id="cardsContainer"></div>
-        <button id="checkButton" style="display: none;">Verify</button>
-<button id="zeroButton" style="font-size: 24px; padding: 10px 20px; margin-bottom: 20px;">ZERO</button>
-<div id="playerInfo" style="margin-bottom: 20px;"></div>
-<button id="giveUpButton" style="display: none;">I/We Give Up</button>
-
-<div id="messageContainer"></div>
-<div id="timerDisplay"></div>
+        <div id="gameButtonsContainer">
+            <button id="checkButton" style="display: none;">Verify<div id="timerDisplay"></div>
+            </button>
+            <button id="zeroButton" style="display: none;">ZERO!</button>
+            <div id="activePlayerButtons" style="display: none;">Select the player that claims a Zero Sum set:</div>
+        </div>
+        <div id="messageContainer"></div>
+        <div id="playerInfo" style="margin-bottom: 20px;"></div>
+        <div id="gameInfo" style="margin-bottom: 20px;"></div>
+        <button id="giveUpButton" style="display: none;">I/We Give Up</button>
 
         <!-- Consider adding a reset or new game button here -->
     </div>
@@ -32,4 +38,5 @@
 
     <script src="bundle.js"></script> <!-- Ensure the path to your JS file is correct -->
 </body>
+
 </html>
